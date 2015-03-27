@@ -1,0 +1,34 @@
+-#  This file is app/views/movies/index.html.haml
+%h1 All Movies
+ 
+%table#movies
+  %thead
+    %tr
+      %th Movie Title
+      %th Rating
+      %th Release Date
+      %th More Info
+  %tbody
+    - @movies.each do |movie|
+      %tr
+        %td= movie.title
+        %td= movie.rating
+        %td= movie.release_date
+        %td= link_to "More about #{movie.title}", movie_path(movie)
+-# add to end of index.html.haml
+ 
+= link_to 'Add new movie', new_movie_path
+%h2 Create New Movie
+ 
+= form_tag movies_path, :method => :post do
+ 
+  = label :movie, :title, 'Title'
+  = text_field :movie, :title
+ 
+  = label :movie, :rating, 'Rating'
+  = select :movie, :rating, ['G','PG','PG-13','R','NC-17']
+ 
+  = label :movie, :release_date, 'Released On'
+  = date_select :movie, :release_date
+ 
+  = submit_tag 'Save Changes'
